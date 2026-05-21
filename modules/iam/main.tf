@@ -11,7 +11,6 @@ resource "aws_iam_openid_connect_provider" "github_actions" {
   tags = var.tags
 }
 
-# 呼び出し元ごとのロジック重複を避けるため、module入力だけで決まる派生値は module 内で解決する
 locals {
   oidc_provider_arn        = var.create_oidc_provider ? aws_iam_openid_connect_provider.github_actions[0].arn : var.oidc_provider_arn
   tfstate_read_policy_name = var.tfstate_read_policy_name != "" ? var.tfstate_read_policy_name : "${var.role_name}-tfstate-read"
